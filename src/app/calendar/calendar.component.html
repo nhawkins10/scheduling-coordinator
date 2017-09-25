@@ -1,0 +1,17 @@
+<h2>Calendar</h2>
+<span (click)="decrementMonth()">&lt;</span>
+<span>{{ monthNames[month] }} {{ showYear() ? year : '' }}</span>
+<span (click)="incrementMonth()">&gt;</span>
+<table>
+  <thead>
+    <tr><td>Sunday</td><td>Monday</td><td>Tuesday</td><td>Wednesday</td><td>Thursday</td><td>Friday</td><td>Saturday</td></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let week of monthArray">
+      <td *ngFor="let currentDay of week" (click)="updateDay(currentDay)">
+        <span [style.color]="currentDay == day ? 'red' : ''">{{ currentDay > 0 ? currentDay : "" }}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="goToToday()">Go To Today</button>
