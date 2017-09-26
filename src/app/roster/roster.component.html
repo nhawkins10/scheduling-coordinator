@@ -1,4 +1,4 @@
 <h2>Roster</h2>
 <ul>
-  <li *ngFor="let person of roster">{{ person.name }}</li>
+  <li *ngFor="let person of availabilityList" [class.unavailable]="!person.available" (click)="toggleAvailable(person)">{{ person.name }}</li>
 </ul>

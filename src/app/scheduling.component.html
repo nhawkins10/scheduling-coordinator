@@ -4,5 +4,5 @@
 <div class="content">
   <span>{{ month }} {{ day }} {{ year }}</span>
   <calendar [year]="year" [month]="month" [day]="day" (onDayChanged)="onDayChanged($event)" (onMonthChanged)="onMonthChanged($event)" (onYearChanged)="onYearChanged($event)"></calendar>
-  <roster [roster]="roster"></roster>
+  <roster [roster]="roster" [unavailable]="unavailable" (onAvailabilityChanged)="onAvailabilityChanged($event)"></roster>
 </div>

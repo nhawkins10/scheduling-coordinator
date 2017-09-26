@@ -18,24 +18,45 @@ export class Scheduling implements OnInit{
 
   monthList = [];
   roster = [];
+  unavailable = [];
 
   onDayChanged(day: number) {
     this.day = day;
+    this.getUnavailable();
   }
 
   onMonthChanged(month: number) {
     this.month = month;
+    this.getUnavailable();
   }
 
   onYearChanged(year: number) {
     this.year = year;
+    this.getUnavailable();
   }
 
   getRoster() {
     this.schedulingService.getRoster().then(roster => this.roster = roster);
   }
 
+  getUnavailable() {
+    var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
+    this.schedulingService.getUnavailable(dataKey, this.day).then(unavailable => this.unavailable = unavailable);
+  }
+
+  saveUnavailable(dataKey, day, id, available) {
+    this.schedulingService.saveUnavailable(dataKey, day, id, available).then(() => this.getUnavailable());
+  }
+
+  onAvailabilityChanged(person: string) {
+    var personData = JSON.parse(person);
+    var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
+
+    this.saveUnavailable(dataKey, this.day, personData.id, !personData.available);
+  }
+
   ngOnInit(): void {
     this.getRoster();
+    this.getUnavailable();
   }
 }
