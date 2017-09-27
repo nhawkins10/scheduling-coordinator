@@ -13,9 +13,9 @@ export const DATA ={
 			"name": "Abraham Lincoln"
 		},
 		{
-      "id": 3,
-      "name": "Barak Obama"
-    }
+		  "id": 3,
+		  "name": "Barak Obama"
+		}
 	],
 	"months": {
 		"2017-08":  [

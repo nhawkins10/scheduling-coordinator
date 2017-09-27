@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from './service/scheduling.service';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'scheduling',
@@ -8,35 +9,37 @@ import { SchedulingService } from './service/scheduling.service';
   providers: [SchedulingService]
 })
 export class Scheduling implements OnInit{
-  constructor(private schedulingService: SchedulingService) {}
-
   title = 'Scheduling App';
 
   year = new Date().getFullYear();
   month = new Date().getMonth();
   day = new Date().getDate();
+  dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
 
   monthList = [];
-  roster = [];
-  unavailable = [];
+  roster: FirebaseListObservable<any[]>;
+  unavailable: FirebaseListObservable<any[]>;
+
+  constructor(private schedulingService: SchedulingService,
+              db: AngularFireDatabase) {
+    var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
+    this.roster = db.list('/roster');
+    this.unavailable = db.list('/months/' + this.dataKey + "/" + (parseInt(this.day, 10)-1));
+  }
 
   onDayChanged(day: number) {
     this.day = day;
-    this.getUnavailable();
+    //this.getUnavailable();
   }
 
   onMonthChanged(month: number) {
     this.month = month;
-    this.getUnavailable();
+    //this.getUnavailable();
   }
 
   onYearChanged(year: number) {
     this.year = year;
-    this.getUnavailable();
-  }
-
-  getRoster() {
-    this.schedulingService.getRoster().then(roster => this.roster = roster);
+    //this.getUnavailable();
   }
 
   getUnavailable() {
@@ -56,7 +59,6 @@ export class Scheduling implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getRoster();
-    this.getUnavailable();
+    //this.getUnavailable();
   }
 }

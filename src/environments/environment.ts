@@ -4,5 +4,12 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyCHVsWgPi_6arItPfwneWCGKjQmqum6KIs',
+    authDomain: 'paradise-worship-schedule.firebaseapp.com',
+    databaseURL: 'https://paradise-worship-schedule.firebaseio.com',
+    storageBucket: 'paradise-worship-schedule.appspot.com'
+  }
 };
+

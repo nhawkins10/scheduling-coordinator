@@ -13,20 +13,20 @@ export class Roster {
 
   showAll = true;
 
-  setAvailability() {
+  setAvailability(items) {
     this.availabilityList = [];
 
-    for (var count=0; count<this.roster.length; count++) {
+    for (var count=0; count<items.length; count++) {
       var available = true;
       for (var unAvlCount=0; unAvlCount<this.unavailable.length; unAvlCount++) {
-        if (this.unavailable[unAvlCount] == this.roster[count].id) {
+        if (this.unavailable[unAvlCount] == items[count].id) {
           available = false;
         }
       }
       this.availabilityList.push(
         {
-        "name": this.roster[count].name,
-        "id": this.roster[count].id,
+        "name": items[count].name,
+        "id": items[count].id,
         "available": available
         }
       );
@@ -41,11 +41,13 @@ export class Roster {
     this.showAll = !this.showAll;
   }
 
-  ngOnInit(): void {
-    this.setAvailability();
-  }
+//  ngOnInit(): void {
+//   this.setAvailability();
+//  }
 
   ngOnChanges() {
-    this.setAvailability();
+    this.roster.subscribe(rosterItems => {
+      this.setAvailability(rosterItems);
+    });
   }
 }
