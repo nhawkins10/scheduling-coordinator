@@ -11,6 +11,8 @@ export class Roster {
   @Output() onAvailabilityChanged = new EventEmitter<String>();
   availabilityList = [];
 
+  showAll = true;
+
   setAvailability() {
     this.availabilityList = [];
 
@@ -33,6 +35,10 @@ export class Roster {
 
   toggleAvailable(person) {
     this.onAvailabilityChanged.emit(JSON.stringify(person));
+  }
+
+  toggleShowAll() {
+    this.showAll = !this.showAll;
   }
 
   ngOnInit(): void {
