@@ -61,6 +61,10 @@ export class Scheduling implements OnInit{
     this.saveUnavailable(personData.id, !personData.available);
   }
 
+  onRosterChanged(roster: string) {
+    this.roster = JSON.parse(roster);
+  }
+
   ngOnInit(): void {
     this.getRoster();
     this.getUnavailable();

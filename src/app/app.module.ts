@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -10,18 +11,21 @@ import { Scheduling } from './scheduling.component';
 import { SchedulingService } from './service/scheduling.service';
 import { Calendar } from './calendar/calendar.component';
 import { Roster } from './roster/roster.component';
+import { RosterEdit } from './roster-edit/roster-edit.component';
 
 @NgModule({
   declarations: [
     Scheduling,
     Calendar,
-    Roster
+    Roster,
+    RosterEdit
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    FormsModule
   ],
   providers: [SchedulingService],
   bootstrap: [Scheduling]
