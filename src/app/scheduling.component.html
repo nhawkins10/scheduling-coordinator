@@ -1,6 +1,8 @@
 <div class="header">
   <h1>{{ title }}</h1>
 </div>
+<!--<div *ngFor="let item of unavailable | async">{{ item }}</div>-->
+<!--<h4>currentUnavailable:</h4><div *ngFor="let item of currentUnavailable">{{ item }}</div>-->
 <div class="content">
   <span>{{ month }} {{ day }} {{ year }}</span>
   <calendar [year]="year" [month]="month" [day]="day" (onDayChanged)="onDayChanged($event)" (onMonthChanged)="onMonthChanged($event)" (onYearChanged)="onYearChanged($event)"></calendar>

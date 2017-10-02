@@ -1,36 +1,60 @@
 import { Injectable } from '@angular/core';
-
-import { DATA } from './example';
+import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class SchedulingService {
+  roster = []
+  unavailable = [];
+  path = "";
 
-  getUnavailable(dataKey, dayKey) {
-    var temp;
-     if (DATA.months[dataKey]) {
-      temp = DATA.months[dataKey][parseInt(dayKey, 10)-1];
-     } else {
-      temp = [];
-     }
-    return Promise.resolve(temp);
+  constructor(private db: AngularFireDatabase) {}
+
+  getRoster() {
+    return new Promise(function(resolve, reject) {
+      this.db.list('/roster')
+        .subscribe(snapshots => {
+          snapshots.forEach(snapshot => {
+            this.roster.push(snapshot);
+          });
+          resolve(this.roster);
+        });
+    }.bind(this));
   }
 
-  saveUnavailable(dataKey, day, id, available) {
-    var currentList = DATA.months[dataKey][parseInt(day, 10)-1];
-    var newList = [];
+  getUnavailable(dataKey, dayKey) {
+    return new Promise(function(resolve, reject) {
+      this.db.object('/months')
+        .subscribe(snapshots => {
+          if (snapshots[dataKey] && snapshots[dataKey][dayKey]) {
+            this.unavailable = snapshots[dataKey][dayKey];
+            resolve(snapshots[dataKey][dayKey]);
+          } else {
+            this.unavailable = [];
+            resolve([]);
+          }
+        });
+    }.bind(this));
+  }
 
-    for (var count=0; count<currentList.length; count++) {
-      if (currentList[count] != id) {
-        newList.push(currentList[count]);
+  saveUnavailable(dataKey: string, day: number, id: string, available: boolean) {
+    var newList = [];
+    var updates = {};
+
+    for (var count=0; count<this.unavailable.length; count++) {
+      if (this.unavailable[count] != id) {
+        newList.push(this.unavailable[count]);
       }
     }
 
     if (!available) {
       newList.push(id);
     }
+    updates[dataKey + '/' + day] = newList;
 
-    DATA.months[dataKey][parseInt(day, 10)-1] = newList;
-
-    return Promise.resolve(newList);
+    return new Promise(function(resolve, reject) {
+      this.db.object('/months')
+        .update(updates);
+        resolve("success");
+    }.bind(this));
   }
 }
