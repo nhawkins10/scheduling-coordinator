@@ -17,6 +17,8 @@ export class Scheduling implements OnInit{
   roster = [];
   unavailable = [];
 
+  showEdit = false;
+
   constructor(private schedulingService: SchedulingService) {}
 
   onDayChanged(day: number) {
@@ -40,6 +42,20 @@ export class Scheduling implements OnInit{
     }.bind(this));
   }
 
+  onRosterChanged(roster: string) {
+    this.schedulingService.saveRoster(JSON.parse(roster)).then(function() {
+      this.getRoster();
+    }.bind(this));
+  }
+
+  onHideRoster() {
+    this.showEdit = false;
+  }
+
+  editRoster() {
+    this.showEdit = true;
+  }
+
   getUnavailable() {
     var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
     this.schedulingService.getUnavailable(dataKey, this.day).then(function(unavailable) {
@@ -59,10 +75,6 @@ export class Scheduling implements OnInit{
     var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
 
     this.saveUnavailable(personData.id, !personData.available);
-  }
-
-  onRosterChanged(roster: string) {
-    this.roster = JSON.parse(roster);
   }
 
   ngOnInit(): void {

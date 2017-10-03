@@ -13,11 +13,23 @@ export class SchedulingService {
     return new Promise(function(resolve, reject) {
       this.db.list('/roster')
         .subscribe(snapshots => {
+          this.roster = [];
           snapshots.forEach(snapshot => {
             this.roster.push(snapshot);
           });
           resolve(this.roster);
         });
+    }.bind(this));
+  }
+
+  saveRoster(roster) {
+    var updates = {};
+    updates['/roster'] = roster;
+
+    return new Promise(function(resolve, reject) {
+      this.db.object('/')
+        .update(updates);
+        resolve("success");
     }.bind(this));
   }
 

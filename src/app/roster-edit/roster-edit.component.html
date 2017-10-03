@@ -1,15 +1,10 @@
 <h2>Roster Edit</h2>
 <ul>
-  <li *ngFor="let person of roster; let i = index">
-    <input [(ngModel)]="roster[i].name" />
+  <li *ngFor="let person of workingRoster; let i = index">
+    <input [(ngModel)]="workingRoster[i].name" />
   </li>
 </ul>
 
-<ul>
-  <ng-container *ngFor="let person of roster">
-    <li>{{ person.name }}</li>
-  </ng-container>
-</ul>
 <button (click)="cancel()">Cancel</button>
 <button (click)="save()">Save</button>
 
