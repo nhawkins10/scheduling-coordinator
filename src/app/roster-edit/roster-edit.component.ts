@@ -20,6 +20,23 @@ export class RosterEdit {
     this.onHideRoster.emit();
   }
 
+  delete(person) {
+    var index = -1;
+    for (var count=0; count<this.workingRoster.length; count++) {
+       if (this.workingRoster[count].id === person.id) {
+         index = count;
+       }
+    }
+
+    if (index > -1) {
+      this.workingRoster.splice(index, 1);
+    }
+  }
+
+  create() {
+    this.workingRoster.push({"id": Date.now(), "name": ""});
+  }
+
   ngOnInit(): void {
     this.workingRoster = [];
     for (var count = 0; count<this.roster.length; count++) {
