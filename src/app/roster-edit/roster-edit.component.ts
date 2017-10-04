@@ -35,6 +35,9 @@ export class RosterEdit {
 
   create() {
     this.workingRoster.push({"id": Date.now(), "name": ""});
+    setTimeout(function() {
+      document.getElementById('editList').scrollTo(0, 100000);
+    });
   }
 
   ngOnInit(): void {

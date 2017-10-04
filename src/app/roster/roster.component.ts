@@ -9,6 +9,7 @@ export class Roster {
   @Input() roster;
   @Input() unavailable;
   @Output() onAvailabilityChanged = new EventEmitter<String>();
+  @Output() onEdit = new EventEmitter<String>();
   availabilityList = [];
 
   showAll = true;
@@ -37,6 +38,10 @@ export class Roster {
 
   toggleAvailable(person) {
     this.onAvailabilityChanged.emit(JSON.stringify(person));
+  }
+
+  edit() {
+    this.onEdit.emit();
   }
 
   toggleShowAll() {

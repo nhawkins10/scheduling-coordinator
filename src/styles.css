@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+body, ul, table, tr, td {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #bfbfbf;
+  font-size: 18px;
+}
+
+.controlBlock {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+}
+
+button {
+  background: #919149;
+  border: none;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  min-width: 100px;
+}
+
+button:hover {
+  box-shadow: 1px 1px 5px #aaa;
+}

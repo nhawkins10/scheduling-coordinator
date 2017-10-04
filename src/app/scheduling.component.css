@@ -1,0 +1,43 @@
+.header {
+  float: left;
+  width: 100%;
+  height: 120px;
+}
+
+@media (max-width: 900px) {
+  .header {
+    height: 80px;
+  }
+}
+
+.header .logoImg {
+  width: 100px;
+  float: left;
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .header .logoImg {
+    display: none;
+  }
+}
+
+.header .logoText {
+  float: left;
+  margin-top: 36px;
+  margin-left: 20px;
+}
+
+@media (max-width: 900px) {
+  .header .logoText {
+    margin-top: 20px;
+  }
+}
+
+.header .headerText {
+  float: left;
+  width: calc(100% - 150px);
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 20px;
+}

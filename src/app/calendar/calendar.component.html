@@ -1,17 +1,32 @@
-<h2>Calendar</h2>
-<span (click)="decrementMonth()">&lt;</span>
-<span>{{ monthNames[month] }} {{ showYear() ? year : '' }}</span>
-<span (click)="incrementMonth()">&gt;</span>
-<table>
-  <thead>
-    <tr><td>Sunday</td><td>Monday</td><td>Tuesday</td><td>Wednesday</td><td>Thursday</td><td>Friday</td><td>Saturday</td></tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let week of monthArray">
-      <td *ngFor="let currentDay of week" (click)="updateDay(currentDay)">
-        <span [style.color]="currentDay == day ? 'red' : ''">{{ currentDay > 0 ? currentDay : "" }}</span>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<button (click)="goToToday()">Go To Today</button>
+<div class="calendar">
+  <div class="monthHeader">
+    <span class="monthBack" (click)="decrementMonth()">&lt;</span>
+    <span class="month">{{ monthNames[month] }} {{ showYear() ? year : '' }}</span>
+    <span class="monthAhead" (click)="incrementMonth()">&gt;</span>
+  </div>
+  <table class="calendarGrid">
+    <thead>
+      <tr>
+        <td class="dayHeader">Sun</td>
+        <td class="dayHeader">Mon</td>
+        <td class="dayHeader">Tue</td>
+        <td class="dayHeader">Wed</td>
+        <td class="dayHeader">Thu</td>
+        <td class="dayHeader">Fri</td>
+        <td class="dayHeader">Sat</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let week of monthArray">
+        <ng-container *ngFor="let currentDay of week">
+          <td class="day" *ngIf="currentDay != ''" (click)="updateDay(currentDay)" [class.selected]="currentDay == day">
+            <span>{{ currentDay > 0 ? currentDay : "" }}</span>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <div class="controlBlock">
+    <button (click)="goToToday()">Go To Today</button>
+  </div>
+</div>

@@ -68,8 +68,10 @@ export class Calendar {
   }
 
   updateDay(day) {
-    this.day = day;
-    this.onDayChanged.emit(day);
+    if (day !== 0) {
+      this.day = day;
+      this.onDayChanged.emit(day);
+    }
   }
 
   decrementMonth(): void {

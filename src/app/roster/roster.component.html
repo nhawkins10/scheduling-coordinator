@@ -1,7 +1,12 @@
-<h2>Roster</h2>
-<ul>
-  <ng-container *ngFor="let person of availabilityList">
-    <li *ngIf="showAll || person.available" [class.unavailable]="!person.available" (click)="toggleAvailable(person)">{{ person.name }}</li>
-  </ng-container>
-</ul>
-<button (click)="toggleShowAll()">{{ showAll ? "Show Available" : "Show All" }}</button>
+<div class="roster">
+  <h2>Team Members</h2>
+  <ul>
+    <ng-container *ngFor="let person of availabilityList">
+      <li *ngIf="showAll || person.available" [class.unavailable]="!person.available" (click)="toggleAvailable(person)">{{ person.name }}</li>
+    </ng-container>
+  </ul>
+  <div class="controlBlock">
+    <button (click)="edit()">Edit</button>
+    <button (click)="toggleShowAll()">{{ showAll ? "Show Available" : "Show All" }}</button>
+  </div>
+</div>

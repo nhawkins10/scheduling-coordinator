@@ -8,7 +8,7 @@ import { SchedulingService } from './service/scheduling.service';
   providers: [SchedulingService]
 })
 export class Scheduling implements OnInit{
-  title = 'Scheduling App';
+  title = 'Worship Team Schedule';
 
   year = new Date().getFullYear();
   month = new Date().getMonth();
@@ -52,7 +52,7 @@ export class Scheduling implements OnInit{
     this.showEdit = false;
   }
 
-  editRoster() {
+  onEdit() {
     this.showEdit = true;
   }
 
@@ -86,3 +86,4 @@ export class Scheduling implements OnInit{
 
   }
 }
+
