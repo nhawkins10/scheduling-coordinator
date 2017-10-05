@@ -51,17 +51,18 @@ li {
   list-style-type: none;
   width: calc(100% - 50px);
   border-bottom: 1px solid #ececec;
+  text-align: center;
 }
 
 @media (min-width: 901px) {
   li {
-    padding: 25px;
+    padding: 20px;
   }
 }
 
 @media (max-width: 900px) {
   li {
-    padding: 20px 25px;
+    padding: 20px 20px;
   }
 }
 
@@ -71,6 +72,27 @@ li:first-child {
 
 li:hover {
   background-color: #f1f1f1;
+}
+
+@media (min-width: 901px) {
+  li input {
+    padding: 10px;
+    min-width: 30%;
+    font-size: 16px;
+    margin-right: 25px;
+  }
+}
+
+@media (max-width: 900px) {
+  li input {
+    padding: 10px;
+    font-size: 14px;
+    margin-right: 8px;
+  }
+}
+
+li span {
+  cursor: pointer;
 }
 
 .controlBlock {

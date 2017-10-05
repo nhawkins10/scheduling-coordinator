@@ -20,6 +20,7 @@
   .roster {
     width: 49%;
     box-shadow: -5px 5px 5px #aaa;
+    height: calc(100% - 175px);
   }
 }
 
@@ -36,10 +37,18 @@
   }
 }
 
+@media (min-width: 901px) {
+  ul {
+    height: calc(100% - 150px);
+    overflow-y: auto;
+  }
+}
+
 li {
   list-style-type: none;
   width: calc(100% - 50px);
   border-bottom: 1px solid #ececec;
+  cursor: pointer;
 }
 
 @media (min-width: 901px) {

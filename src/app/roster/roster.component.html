@@ -2,7 +2,7 @@
   <h2>Team Members</h2>
   <ul>
     <ng-container *ngFor="let person of availabilityList">
-      <li *ngIf="showAll || person.available" [class.unavailable]="!person.available" (click)="toggleAvailable(person)">{{ person.name }}</li>
+      <li *ngIf="showAll || person.available" [class.unavailable]="!person.available" (click)="toggleAvailable(person)" title="Click to update availability.">{{ person.name }}</li>
     </ng-container>
   </ul>
   <div class="controlBlock">

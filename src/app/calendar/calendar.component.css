@@ -20,8 +20,9 @@
 }
 
 .selected {
-  color: #919149;
+  color: #de1f1f;
   background-color: #f1f1f1;
+  font-weight: bold;
 }
 
 .monthHeader {
@@ -59,7 +60,8 @@
   border: 1px solid #ececec;
   text-align: center;
   height: 50px;
-  width: 14%
+  width: 14%;
+  cursor: pointer;
 }
 
 .empty {
