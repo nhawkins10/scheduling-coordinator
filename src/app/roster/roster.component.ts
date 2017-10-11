@@ -8,8 +8,10 @@ import { Component, Input, Output, OnInit, OnChanges, EventEmitter } from '@angu
 export class Roster {
   @Input() roster;
   @Input() unavailable;
+  @Input() locked;
   @Output() onAvailabilityChanged = new EventEmitter<String>();
   @Output() onEdit = new EventEmitter<String>();
+  @Output() onLockedChanged = new EventEmitter<Boolean>();
   availabilityList = [];
 
   showAll = true;
@@ -46,6 +48,10 @@ export class Roster {
 
   toggleShowAll() {
     this.showAll = !this.showAll;
+  }
+
+  toggleLock() {
+    this.onLockedChanged.emit(this.locked);
   }
 
   ngOnInit(): void {

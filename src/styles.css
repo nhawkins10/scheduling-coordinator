@@ -14,6 +14,7 @@ body {
   width: 100%;
   text-align: center;
   padding: 15px 0;
+  background: #ffffff;
 }
 
 button {
@@ -24,6 +25,13 @@ button {
   cursor: pointer;
   border-radius: 3px;
   min-width: 100px;
+}
+
+@media(max-width: 500px) {
+  button {
+    width: 90%;
+    margin-bottom: 10px;
+  }
 }
 
 button:hover {

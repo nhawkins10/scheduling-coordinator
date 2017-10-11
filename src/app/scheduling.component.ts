@@ -18,6 +18,7 @@ export class Scheduling implements OnInit{
   unavailable = [];
 
   showEdit = false;
+  locked = false;
 
   constructor(private schedulingService: SchedulingService) {}
 
@@ -71,15 +72,39 @@ export class Scheduling implements OnInit{
   }
 
   onAvailabilityChanged(person: string) {
-    var personData = JSON.parse(person);
-    var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
+    if (!this.locked) {
+      var personData = JSON.parse(person);
+      var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
 
-    this.saveUnavailable(personData.id, !personData.available);
+      this.saveUnavailable(personData.id, !personData.available);
+    } else {
+      alert("Scheduling is currently locked.");
+    }
+  }
+
+  toggleLocked() {
+   console.log('toggle locked');
+   //getAuthenticated
+   //if (authenticated)
+     this.saveLocked();
+  }
+
+  getLocked() {
+    this.schedulingService.getLocked().then(function(locked) {
+      this.locked = locked;
+    }.bind(this));
+  }
+
+  saveLocked() {
+    this.schedulingService.saveLocked(!this.locked).then(function() {
+      this.getLocked();
+    }.bind(this));
   }
 
   ngOnInit(): void {
     this.getRoster();
     this.getUnavailable();
+    this.getLocked();
   }
 
   ngOnChanges(): void {

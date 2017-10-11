@@ -69,4 +69,23 @@ export class SchedulingService {
         resolve("success");
     }.bind(this));
   }
+
+  getLocked() {
+    return new Promise(function(resolve, reject) {
+      this.db.object('/locked/status')
+        .subscribe(snapshots => {
+          resolve(snapshots.$value);
+        });
+    }.bind(this));
+  }
+
+  saveLocked(locked) {
+    var updates = {};
+    updates['/status'] = locked;
+
+    return new Promise(function(resolve, reject) {
+      this.db.object('/locked').update(updates);
+      resolve("success");
+    }.bind(this));
+  }
 }
