@@ -34,12 +34,14 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__calendar_calendar_component__ = __webpack_require__("../../../../../src/app/calendar/calendar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__roster_roster_component__ = __webpack_require__("../../../../../src/app/roster/roster.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__roster_edit_roster_edit_component__ = __webpack_require__("../../../../../src/app/roster-edit/roster-edit.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__authentication_authentication_component__ = __webpack_require__("../../../../../src/app/authentication/authentication.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -63,7 +65,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_7__scheduling_component__["a" /* Scheduling */],
             __WEBPACK_IMPORTED_MODULE_9__calendar_calendar_component__["a" /* Calendar */],
             __WEBPACK_IMPORTED_MODULE_10__roster_roster_component__["a" /* Roster */],
-            __WEBPACK_IMPORTED_MODULE_11__roster_edit_roster_edit_component__["a" /* RosterEdit */]
+            __WEBPACK_IMPORTED_MODULE_11__roster_edit_roster_edit_component__["a" /* RosterEdit */],
+            __WEBPACK_IMPORTED_MODULE_12__authentication_authentication_component__["a" /* Authentication */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -78,6 +81,134 @@ AppModule = __decorate([
 ], AppModule);
 
 //# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/authentication/authentication.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".authentication {\r\n  background: #ffffff;\r\n}\r\n\r\n.overlay {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.6);\r\n  z-index: 500;\r\n}\r\n\r\n.authenticationContent {\r\n  z-index: 600;\r\n  position: fixed;\r\n  background: #ffffff;\r\n  text-align: center;\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .authenticationContent {\r\n    top: 30%;\r\n    left: 35%;\r\n    width: 30%;\r\n    height: 40%;\r\n  }\r\n}\r\n\r\n@media (max-width: 900px) {\r\n  .authenticationContent {\r\n    top: 5%;\r\n    left: 15px;\r\n    width: calc(100% - 30px);\r\n    height: 90%;\r\n    overflow-y: auto;\r\n  }\r\n}\r\n\r\n.authentication .authenticationContent h2 {\r\n  width: 100%;\r\n  text-align: center;\r\n}\r\n\r\n.passwordErrorMessage {\r\n  color: #c13232;\r\n  font-weight: bold;\r\n}\r\n\r\n.passwordChangedMessage {\r\n  color: #919149;\r\n  font-weight: bold;\r\n}\r\n\r\n.inputContainer {\r\n  text-align: left;\r\n  width: 50%;\r\n  position: relative;\r\n  left: 25%;\r\n  margin-top: 1%;\r\n  margin-bottom: 2%;\r\n}\r\n\r\n.inputContainer input {\r\n  padding: 10px;\r\n  width: 100%;\r\n  margin-top: 1%;\r\n}\r\n\r\n.controlBlock {\r\n  position: absolute;\r\n  bottom : 0;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/authentication/authentication.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"authentication\">\r\n  <div class=\"overlay\"></div>\r\n  <div class=\"authenticationContent\">\r\n    <h2>{{ changing ? \"Update Password\" : \"Sign In\" }}</h2>\r\n\r\n    <div class=\"inputContainer\">\r\n      <label *ngIf=\"!changing\">Password</label>\r\n      <label *ngIf=\"changing\">Current Password</label>\r\n      <input type=\"password\" autocomplete=\"current-password\" placeholder=\"Password\" autofocus [(ngModel)]=\"password\"/>\r\n    </div>\r\n    <div class=\"inputContainer\">\r\n      <label *ngIf=\"changing\">New Password</label>\r\n      <input id=\"newPassword\" *ngIf=\"changing\" type=\"password\" autocomplete=\"new-password\" placeholder=\"New Password\" [(ngModel)]=\"newPassword\"/>\r\n    </div>\r\n\r\n    <div class=\"passwordErrorMessage\" *ngIf=\"passwordErrorMessage\">Password is incorrect.</div>\r\n    <div class=\"passwordChangedMessage\" *ngIf=\"passwordChangedMessage\">Password has been updated.</div>\r\n\r\n    <div class=\"controlBlock\">\r\n      <button class=\"secondaryButton\" (click)=\"toggleChange()\">{{ changing ? \"Back\" : \"Update Password\" }}</button>\r\n      <button (click)=\"cancel()\">Cancel</button>\r\n      <button *ngIf=\"changing\" (click)=\"changePw()\">Update</button>\r\n      <button *ngIf=\"!changing\" (click)=\"logIn()\">Sign In</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/authentication/authentication.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Authentication; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_scheduling_service__ = __webpack_require__("../../../../../src/app/service/scheduling.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var Authentication = (function () {
+    function Authentication(schedulingService) {
+        this.schedulingService = schedulingService;
+        this.onHideAuth = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
+        this.onToggleLock = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
+        this.onPasswordChanged = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
+        this.changing = false;
+        this.passwordErrorMessage = false;
+        this.passwordChangedMessage = false;
+        this.password = '';
+        this.newPassword = '';
+    }
+    Authentication.prototype.toggleChange = function () {
+        this.resetMessages();
+        this.changing = !this.changing;
+        this.password = '';
+        this.newPassword = '';
+    };
+    Authentication.prototype.cancel = function () {
+        this.onHideAuth.emit();
+    };
+    Authentication.prototype.changePw = function () {
+        this.resetMessages();
+        this.schedulingService.getPassword().then(function (password) {
+            if (password === this.password) {
+                this.onPasswordChanged.emit(this.newPassword);
+                this.toggleChange();
+                this.passwordChangedMessage = true;
+            }
+            else {
+                this.passwordErrorMessage = true;
+            }
+        }.bind(this));
+    };
+    Authentication.prototype.logIn = function () {
+        this.resetMessages();
+        this.schedulingService.getPassword().then(function (password) {
+            if (password === this.password) {
+                this.onToggleLock.emit();
+                this.onHideAuth.emit();
+            }
+            else {
+                this.passwordErrorMessage = true;
+            }
+        }.bind(this));
+    };
+    Authentication.prototype.resetMessages = function () {
+        this.passwordErrorMessage = false;
+        this.passwordChangedMessage = false;
+    };
+    Authentication.prototype.ngOnInit = function () {
+    };
+    return Authentication;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])(),
+    __metadata("design:type", Object)
+], Authentication.prototype, "locked", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
+    __metadata("design:type", Object)
+], Authentication.prototype, "onHideAuth", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
+    __metadata("design:type", Object)
+], Authentication.prototype, "onToggleLock", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
+    __metadata("design:type", Object)
+], Authentication.prototype, "onPasswordChanged", void 0);
+Authentication = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'authentication',
+        template: __webpack_require__("../../../../../src/app/authentication/authentication.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/authentication/authentication.component.css")],
+        providers: [__WEBPACK_IMPORTED_MODULE_1__service_scheduling_service__["a" /* SchedulingService */]]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__service_scheduling_service__["a" /* SchedulingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_scheduling_service__["a" /* SchedulingService */]) === "function" && _a || Object])
+], Authentication);
+
+var _a;
+//# sourceMappingURL=authentication.component.js.map
 
 /***/ }),
 
@@ -393,7 +524,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".unavailable {\r\n  text-decoration: line-through;\r\n  color: #aaaaaa;\r\n}\r\n\r\n.roster {\r\n  display: inline-block;\r\n  right: 0;\r\n  position: absolute;\r\n  background: #ffffff;\r\n}\r\n\r\n@media (max-width: 900px) {\r\n .roster {\r\n   width: 100%;\r\n }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .roster {\r\n    width: 49%;\r\n    box-shadow: -5px 5px 5px #aaa;\r\n    height: calc(100% - 175px);\r\n  }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .roster h2 {\r\n    width: 100%;\r\n    text-align: center;\r\n  }\r\n}\r\n\r\n@media (max-width: 900px) {\r\n  .roster h2 {\r\n    display: none;\r\n  }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  ul {\r\n    height: calc(100% - 150px);\r\n    overflow-y: auto;\r\n  }\r\n}\r\n\r\nli {\r\n  list-style-type: none;\r\n  width: calc(100% - 50px);\r\n  border-bottom: 1px solid #ececec;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  li {\r\n    padding: 25px;\r\n  }\r\n}\r\n\r\n@media (max-width: 900px) {\r\n  li {\r\n    padding: 20px 25px;\r\n  }\r\n}\r\n\r\nli:first-child {\r\n  border-top: 1px solid #ececec;\r\n}\r\n\r\nli:hover {\r\n  background-color: #f1f1f1;\r\n}\r\n\r\n", ""]);
+exports.push([module.i, ".unavailable {\r\n  text-decoration: line-through;\r\n  color: #aaaaaa;\r\n}\r\n\r\n.locked {\r\n  cursor: default;\r\n}\r\n\r\n.roster {\r\n  display: inline-block;\r\n  right: 0;\r\n  position: absolute;\r\n  background: #ffffff;\r\n}\r\n\r\n@media (max-width: 900px) {\r\n .roster {\r\n   width: 100%;\r\n }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .roster {\r\n    width: 49%;\r\n    box-shadow: -5px 5px 5px #aaa;\r\n    height: calc(100% - 175px);\r\n  }\r\n}\r\n\r\n\r\n.roster header {\r\n  width: 100%;\r\n  text-align: center\r\n}\r\n\r\n@media (max-width: 900px) {\r\n  .roster header {\r\n    margin: 12px 0;\r\n  }\r\n}\r\n\r\n@media (max-width: 900px) {\r\n  .roster h2 {\r\n    display: none;\r\n  }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .roster h2 {\r\n    display: inline-block;\r\n  }\r\n}\r\n\r\n.lockIcon {\r\n  width: 25px;\r\n  position: relative;\r\n  top: 3px;\r\n}\r\n\r\n@media (max-width: 900px) {\r\n  .lockIcon {\r\n    left: 0;\r\n  }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .lockIcon {\r\n    left: 10px;\r\n  }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  ul {\r\n    height: calc(100% - 150px);\r\n    overflow-y: auto;\r\n  }\r\n}\r\n\r\nli {\r\n  list-style-type: none;\r\n  width: calc(100% - 50px);\r\n  border-bottom: 1px solid #ececec;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  li {\r\n    padding: 25px;\r\n  }\r\n}\r\n\r\n@media (max-width: 900px) {\r\n  li {\r\n    padding: 20px 25px;\r\n  }\r\n}\r\n\r\nli:first-child {\r\n  border-top: 1px solid #ececec;\r\n}\r\n\r\nli:not(.locked):hover {\r\n  background-color: #f1f1f1;\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -406,7 +537,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/roster/roster.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"roster\">\r\n  <h2>Team Members</h2>\r\n  <ul>\r\n    <ng-container *ngFor=\"let person of availabilityList\">\r\n      <li *ngIf=\"showAll || person.available\" [class.unavailable]=\"!person.available\" (click)=\"toggleAvailable(person)\" title=\"Click to update availability.\">{{ person.name }}</li>\r\n    </ng-container>\r\n  </ul>\r\n  <div class=\"controlBlock\">\r\n    <button (click)=\"edit()\">Edit</button>\r\n    <button (click)=\"toggleShowAll()\">{{ showAll ? \"Show Available\" : \"Show All\" }}</button>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"roster\">\r\n  <header>\r\n    <h2>Team Members</h2>\r\n    <img class=\"lockIcon\" src=\"../assets/lock.png\" *ngIf=\"locked\" title=\"Scheduling is currently locked.\"/>\r\n  </header>\r\n  <ul>\r\n    <ng-container *ngFor=\"let person of availabilityList\">\r\n      <li *ngIf=\"showAll || person.available\" [class.unavailable]=\"!person.available\" [class.locked]=\"locked\" (click)=\"toggleAvailable(person)\" title=\"Click to update availability.\">{{ person.name }}</li>\r\n    </ng-container>\r\n  </ul>\r\n  <div class=\"controlBlock\">\r\n    <button (click)=\"edit()\">Edit</button>\r\n    <button (click)=\"toggleShowAll()\">{{ showAll ? \"Show Available\" : \"Show All\" }}</button>\r\n    <button (click)=\"openAuth()\">{{ locked ? \"Unlock\" : \"Lock\" }}</button>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -430,6 +561,7 @@ var Roster = (function () {
     function Roster() {
         this.onAvailabilityChanged = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
         this.onEdit = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
+        this.onOpenAuth = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
         this.availabilityList = [];
         this.showAll = true;
     }
@@ -460,6 +592,9 @@ var Roster = (function () {
     Roster.prototype.toggleShowAll = function () {
         this.showAll = !this.showAll;
     };
+    Roster.prototype.openAuth = function () {
+        this.onOpenAuth.emit(this.locked);
+    };
     Roster.prototype.ngOnInit = function () {
         this.setAvailability();
     };
@@ -477,6 +612,10 @@ __decorate([
     __metadata("design:type", Object)
 ], Roster.prototype, "unavailable", void 0);
 __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])(),
+    __metadata("design:type", Object)
+], Roster.prototype, "locked", void 0);
+__decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
     __metadata("design:type", Object)
 ], Roster.prototype, "onAvailabilityChanged", void 0);
@@ -484,6 +623,10 @@ __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
     __metadata("design:type", Object)
 ], Roster.prototype, "onEdit", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
+    __metadata("design:type", Object)
+], Roster.prototype, "onOpenAuth", void 0);
 Roster = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'roster',
@@ -517,7 +660,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/scheduling.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\">\r\n  <img class=\"logoImg\" src=\"./assets/logo-img.png\" />\r\n  <img class=\"logoText\" src=\"./assets/logo-text.png\" />\r\n  <!--<div class=\"headerText\">{{ title }}</div>-->\r\n</div>\r\n<calendar [year]=\"year\" [month]=\"month\" [day]=\"day\" (onDayChanged)=\"onDayChanged($event)\" (onMonthChanged)=\"onMonthChanged($event)\" (onYearChanged)=\"onYearChanged($event)\" ></calendar>\r\n<roster [roster]=\"roster\" [unavailable]=\"unavailable\" (onAvailabilityChanged)=\"onAvailabilityChanged($event)\" (onEdit)=\"onEdit($event)\"></roster>\r\n<roster-edit *ngIf=\"showEdit\" [roster]=\"roster\" (onRosterChanged)=\"onRosterChanged($event)\" (onHideRoster)=\"onHideRoster($event)\"></roster-edit>\r\n\r\n"
+module.exports = "<div class=\"header\">\r\n  <img class=\"logoImg\" src=\"./assets/logo-img.png\" />\r\n  <img class=\"logoText\" src=\"./assets/logo-text.png\" />\r\n  <!--<div class=\"headerText\">{{ title }}</div>-->\r\n</div>\r\n<calendar [year]=\"year\" [month]=\"month\" [day]=\"day\" (onDayChanged)=\"onDayChanged($event)\" (onMonthChanged)=\"onMonthChanged($event)\" (onYearChanged)=\"onYearChanged($event)\" ></calendar>\r\n<roster [roster]=\"roster\" [unavailable]=\"unavailable\" [locked]=\"locked\" (onAvailabilityChanged)=\"onAvailabilityChanged($event)\" (onEdit)=\"onEdit($event)\" (onOpenAuth)=\"openAuth($event)\"></roster>\r\n<roster-edit *ngIf=\"showEdit\" [roster]=\"roster\" (onRosterChanged)=\"onRosterChanged($event)\" (onHideRoster)=\"onHideRoster($event)\"></roster-edit>\r\n<authentication *ngIf=\"showAuth\" [locked]=\"locked\" (onHideAuth)=\"onHideAuth($event)\" (onToggleLock)=\"onToggleLock($event)\" (onPasswordChanged)=\"onPasswordChanged($event)\"></authentication>\r\n\r\n"
 
 /***/ }),
 
@@ -549,55 +692,193 @@ var Scheduling = (function () {
         this.roster = [];
         this.unavailable = [];
         this.showEdit = false;
+        this.showAuth = false;
+        this.locked = false;
     }
+    //---------------------------------------//
+    //          Date/Time Functions          //
+    //---------------------------------------//
+    /*
+     * Updates the current day and retrieves
+     * the list of unavailable people for the
+     * given date.
+     *
+     * @param day - day to set
+     * @return none
+     */
     Scheduling.prototype.onDayChanged = function (day) {
         this.day = day;
         this.getUnavailable();
     };
+    /*
+     * Updates the current month and retrieves
+     * the list of unavailable people for the
+     * given date.
+     *
+     * @param month - month to set
+     * @return none
+     */
     Scheduling.prototype.onMonthChanged = function (month) {
         this.month = month;
         this.getUnavailable();
     };
+    /*
+     * Updates the current year and retrieves
+     * the list of unavailable people for the
+     * given date.
+     *
+     * @param year - year to set
+     * @return none
+     */
     Scheduling.prototype.onYearChanged = function (year) {
         this.year = year;
         this.getUnavailable();
     };
+    //---------------------------------------//
+    //            Roster Functions           //
+    //---------------------------------------//
+    /*
+     * Retrieves the list of current members
+     * and stores the list in a local variable.
+     *
+     * @return none
+     */
     Scheduling.prototype.getRoster = function () {
         this.schedulingService.getRoster().then(function (roster) {
             this.roster = roster;
         }.bind(this));
     };
+    /*
+     * Saves the list of current members
+     * to the database when it is changed.
+     *
+     * @param roster - the JSON object containing memeber data
+     * @return none
+     */
     Scheduling.prototype.onRosterChanged = function (roster) {
         this.schedulingService.saveRoster(JSON.parse(roster)).then(function () {
             this.getRoster();
         }.bind(this));
     };
+    /*
+     * Hides the edit modal window.
+     *
+     * @return none
+     */
     Scheduling.prototype.onHideRoster = function () {
         this.showEdit = false;
     };
+    /*
+     * Shows the edit modal window.
+     *
+     * @return none
+     */
     Scheduling.prototype.onEdit = function () {
         this.showEdit = true;
     };
+    /*
+     * Retrieves the list of unavailable members
+     * for a given date and stores the list in a
+     * local variable.
+     *
+     * @return none
+     */
     Scheduling.prototype.getUnavailable = function () {
         var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
         this.schedulingService.getUnavailable(dataKey, this.day).then(function (unavailable) {
             this.unavailable = unavailable;
         }.bind(this));
     };
+    /*
+     * Saves the availability for a given member to the database.
+     *
+     * @param id - the ID of the member to update
+     * @param availabile - boolean indicating the availability of the given member
+     * @return none
+     */
     Scheduling.prototype.saveUnavailable = function (id, available) {
         var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
         this.schedulingService.saveUnavailable(dataKey, this.day, id, available).then(function () {
             this.getUnavailable();
         }.bind(this));
     };
+    /*
+     * Toggles the availability for a given member.
+     *
+     * @param person - the JSON object representing the member's current availability
+     * @return none
+     */
     Scheduling.prototype.onAvailabilityChanged = function (person) {
-        var personData = JSON.parse(person);
-        var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
-        this.saveUnavailable(personData.id, !personData.available);
+        if (!this.locked) {
+            var personData = JSON.parse(person);
+            var dataKey = this.year + "-" + (this.month < 10 ? "0" + this.month : this.month);
+            this.saveUnavailable(personData.id, !personData.available);
+        }
+        else {
+            alert("Scheduling is currently locked.");
+        }
     };
+    //---------------------------------------//
+    //       Authentication Functions        //
+    //---------------------------------------//
+    /*
+     * Shows the authentication modal.
+     *
+     * @return none
+     */
+    Scheduling.prototype.openAuth = function () {
+        this.showAuth = true;
+    };
+    /*
+     * Hides the authentication modal.
+     *
+     * @return none
+     */
+    Scheduling.prototype.onHideAuth = function () {
+        this.showAuth = false;
+    };
+    /*
+     * Toggles the current locked state and
+     * saves the state to the database.
+     *
+     * @return none
+     */
+    Scheduling.prototype.onToggleLock = function () {
+        this.schedulingService.saveLocked(!this.locked).then(function () {
+            this.getLocked();
+        }.bind(this));
+    };
+    /*
+     * Retrieves the current locked state and stores
+     * the value in a local variable.
+     *
+     * @return none
+     */
+    Scheduling.prototype.getLocked = function () {
+        this.schedulingService.getLocked().then(function (locked) {
+            this.locked = locked;
+        }.bind(this));
+    };
+    /*
+     * Saves an updated password to the database.
+     *
+     * @param password - the new password
+     * @return none
+     */
+    Scheduling.prototype.onPasswordChanged = function (password) {
+        this.schedulingService.savePassword(password).then(function () {
+            console.log("password successfully changed");
+        }.bind(this));
+    };
+    /*
+     * Function called on module initialization.
+     *
+     * @return none
+     */
     Scheduling.prototype.ngOnInit = function () {
         this.getRoster();
         this.getUnavailable();
+        this.getLocked();
     };
     Scheduling.prototype.ngOnChanges = function () {
     };
@@ -696,6 +977,38 @@ var SchedulingService = (function () {
         return new Promise(function (resolve, reject) {
             this.db.object('/months')
                 .update(updates);
+            resolve("success");
+        }.bind(this));
+    };
+    SchedulingService.prototype.getLocked = function () {
+        return new Promise(function (resolve, reject) {
+            this.db.object('/locked/status')
+                .subscribe(function (snapshots) {
+                resolve(snapshots.$value);
+            });
+        }.bind(this));
+    };
+    SchedulingService.prototype.saveLocked = function (locked) {
+        var updates = {};
+        updates['/status'] = locked;
+        return new Promise(function (resolve, reject) {
+            this.db.object('/locked').update(updates);
+            resolve("success");
+        }.bind(this));
+    };
+    SchedulingService.prototype.getPassword = function () {
+        return new Promise(function (resolve, reject) {
+            this.db.object('/locked/password')
+                .subscribe(function (snapshots) {
+                resolve(snapshots.$value);
+            });
+        }.bind(this));
+    };
+    SchedulingService.prototype.savePassword = function (password) {
+        var updates = {};
+        updates['/password'] = password;
+        return new Promise(function (resolve, reject) {
+            this.db.object('/locked').update(updates);
             resolve("success");
         }.bind(this));
     };

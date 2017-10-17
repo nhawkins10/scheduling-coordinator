@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody, ul, table, tr, td {\n  margin: 0;\n  padding: 0;\n  font-family: \"Raleway\", sans-serif;\n}\n\nbody {\n  background: #bfbfbf;\n  font-size: 18px;\n}\n\n.controlBlock {\n  width: 100%;\n  text-align: center;\n  padding: 15px 0;\n}\n\nbutton {\n  background: #919149;\n  border: none;\n  padding: 10px;\n  color: white;\n  cursor: pointer;\n  border-radius: 3px;\n  min-width: 100px;\n}\n\nbutton:hover {\n  box-shadow: 1px 1px 5px #aaa;\n}\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody, ul, table, tr, td {\n  margin: 0;\n  padding: 0;\n  font-family: \"Raleway\", sans-serif;\n}\n\nbody {\n  background: #bfbfbf;\n  font-size: 18px;\n}\n\n.controlBlock {\n  width: 100%;\n  text-align: center;\n  padding: 15px 0;\n  background: #ffffff;\n}\n\nbutton {\n  background: #919149;\n  border: none;\n  padding: 10px;\n  color: white;\n  cursor: pointer;\n  border-radius: 3px;\n  min-width: 80px;\n}\n\n.secondaryButton {\n  color: #000000;\n  background: #eeeeee;\n}\n\n@media(max-width: 500px) {\n  button {\n    width: 90%;\n    margin-bottom: 10px;\n  }\n}\n\nbutton:hover {\n  box-shadow: 1px 1px 5px #aaa;\n}\n", ""]);
 
 // exports
 
