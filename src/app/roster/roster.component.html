@@ -1,13 +1,16 @@
 <div class="roster">
-  <h2>Team Members</h2>
+  <header>
+    <h2>Team Members</h2>
+    <img class="lockIcon" src="../assets/lock.png" *ngIf="locked" title="Scheduling is currently locked."/>
+  </header>
   <ul>
     <ng-container *ngFor="let person of availabilityList">
-      <li *ngIf="showAll || person.available" [class.unavailable]="!person.available" (click)="toggleAvailable(person)" title="Click to update availability.">{{ person.name }}</li>
+      <li *ngIf="showAll || person.available" [class.unavailable]="!person.available" [class.locked]="locked" (click)="toggleAvailable(person)" title="Click to update availability.">{{ person.name }}</li>
     </ng-container>
   </ul>
   <div class="controlBlock">
     <button (click)="edit()">Edit</button>
     <button (click)="toggleShowAll()">{{ showAll ? "Show Available" : "Show All" }}</button>
-    <button (click)="toggleLock()">{{ locked ? "Unlock" : "Lock" }}</button>
+    <button (click)="openAuth()">{{ locked ? "Unlock" : "Lock" }}</button>
   </div>
 </div>

@@ -11,7 +11,7 @@ export class Roster {
   @Input() locked;
   @Output() onAvailabilityChanged = new EventEmitter<String>();
   @Output() onEdit = new EventEmitter<String>();
-  @Output() onLockedChanged = new EventEmitter<Boolean>();
+  @Output() onOpenAuth = new EventEmitter<Boolean>();
   availabilityList = [];
 
   showAll = true;
@@ -50,8 +50,8 @@ export class Roster {
     this.showAll = !this.showAll;
   }
 
-  toggleLock() {
-    this.onLockedChanged.emit(this.locked);
+  openAuth() {
+    this.onOpenAuth.emit(this.locked);
   }
 
   ngOnInit(): void {

@@ -4,6 +4,7 @@
   <!--<div class="headerText">{{ title }}</div>-->
 </div>
 <calendar [year]="year" [month]="month" [day]="day" (onDayChanged)="onDayChanged($event)" (onMonthChanged)="onMonthChanged($event)" (onYearChanged)="onYearChanged($event)" ></calendar>
-<roster [roster]="roster" [unavailable]="unavailable" [locked]="locked" (onAvailabilityChanged)="onAvailabilityChanged($event)" (onEdit)="onEdit($event)" (onLockedChanged)="toggleLocked($event)"></roster>
+<roster [roster]="roster" [unavailable]="unavailable" [locked]="locked" (onAvailabilityChanged)="onAvailabilityChanged($event)" (onEdit)="onEdit($event)" (onOpenAuth)="openAuth($event)"></roster>
 <roster-edit *ngIf="showEdit" [roster]="roster" (onRosterChanged)="onRosterChanged($event)" (onHideRoster)="onHideRoster($event)"></roster-edit>
+<authentication *ngIf="showAuth" [locked]="locked" (onHideAuth)="onHideAuth($event)" (onToggleLock)="onToggleLock($event)" (onPasswordChanged)="onPasswordChanged($event)"></authentication>
 

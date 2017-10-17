@@ -1,0 +1,59 @@
+.authentication {
+  background: #ffffff;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 500;
+}
+
+.authenticationContent {
+  z-index: 600;
+  position: fixed;
+  background: #ffffff;
+  text-align: center;
+}
+
+@media (min-width: 901px) {
+  .authenticationContent {
+    top: 30%;
+    left: 35%;
+    width: 30%;
+    height: 40%;
+  }
+}
+
+@media (max-width: 900px) {
+  .authenticationContent {
+    top: 5%;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: 90%;
+    overflow-y: auto;
+  }
+}
+
+.authentication .authenticationContent h2 {
+  width: 100%;
+  text-align: center;
+}
+
+.passwordErrorMessage {
+  color: #c13232;
+  font-weight: bold;
+}
+
+.passwordChangedMessage {
+  color: #919149;
+  font-weight: bold;
+}
+
+.controlBlock {
+  position: absolute;
+  bottom : 0;
+}

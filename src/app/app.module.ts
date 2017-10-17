@@ -12,13 +12,15 @@ import { SchedulingService } from './service/scheduling.service';
 import { Calendar } from './calendar/calendar.component';
 import { Roster } from './roster/roster.component';
 import { RosterEdit } from './roster-edit/roster-edit.component';
+import { Authentication } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
     Scheduling,
     Calendar,
     Roster,
-    RosterEdit
+    RosterEdit,
+    Authentication
   ],
   imports: [
     BrowserModule,

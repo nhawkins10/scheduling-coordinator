@@ -88,4 +88,23 @@ export class SchedulingService {
       resolve("success");
     }.bind(this));
   }
+
+  getPassword() {
+    return new Promise(function(resolve, reject) {
+      this.db.object('/locked/password')
+        .subscribe(snapshots => {
+          resolve(snapshots.$value);
+        });
+    }.bind(this));
+  }
+
+  savePassword(password) {
+    var updates = {};
+    updates['/password'] = password;
+
+    return new Promise(function(resolve, reject) {
+      this.db.object('/locked').update(updates);
+      resolve("success");
+    }.bind(this));
+  }
 }

@@ -3,6 +3,10 @@
   color: #aaaaaa;
 }
 
+.locked {
+  cursor: default;
+}
+
 .roster {
   display: inline-block;
   right: 0;
@@ -24,16 +28,45 @@
   }
 }
 
-@media (min-width: 901px) {
-  .roster h2 {
-    width: 100%;
-    text-align: center;
+
+.roster header {
+  width: 100%;
+  text-align: center
+}
+
+@media (max-width: 900px) {
+  .roster header {
+    margin: 12px 0;
   }
 }
 
 @media (max-width: 900px) {
   .roster h2 {
     display: none;
+  }
+}
+
+@media (min-width: 901px) {
+  .roster h2 {
+    display: inline-block;
+  }
+}
+
+.lockIcon {
+  width: 25px;
+  position: relative;
+  top: 3px;
+}
+
+@media (max-width: 900px) {
+  .lockIcon {
+    left: 0;
+  }
+}
+
+@media (min-width: 901px) {
+  .lockIcon {
+    left: 10px;
   }
 }
 
@@ -67,7 +100,7 @@ li:first-child {
   border-top: 1px solid #ececec;
 }
 
-li:hover {
+li:not(.locked):hover {
   background-color: #f1f1f1;
 }
 
