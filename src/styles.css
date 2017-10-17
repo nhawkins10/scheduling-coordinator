@@ -24,7 +24,12 @@ button {
   color: white;
   cursor: pointer;
   border-radius: 3px;
-  min-width: 100px;
+  min-width: 80px;
+}
+
+.secondaryButton {
+  color: #000000;
+  background: #eeeeee;
 }
 
 @media(max-width: 500px) {
