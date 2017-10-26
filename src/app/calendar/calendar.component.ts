@@ -5,6 +5,11 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
+
+/*
+ * This class provides a calendar interface that allows
+ * access to the current month and future months.
+ */
 export class Calendar {
   @Input() year;
   @Input() month;
@@ -16,6 +21,12 @@ export class Calendar {
   monthArray = [];
 
 
+  /*
+   * Returns a boolean indicating if the current
+   * year is a leap year.
+   *
+   * @return Boolean
+   */
   isLeapYear(): Boolean {
     if (parseInt(this.year, 10) % 100 === 0 && parseInt(this.year, 10) % 400 === 0) {
       return true;
@@ -26,6 +37,13 @@ export class Calendar {
     }
   }
 
+  /*
+   * Generates an array of arrays to represent the current month.
+   * Array elements that are not part of the working month are
+   * set to zero.
+   *
+   * @return none
+   */
   generateCalendar() {
     var monthStart = new Date(this.year, this.month, 1);
     var lengths = {
@@ -67,6 +85,12 @@ export class Calendar {
     this.monthArray = monthArray;
   }
 
+  /*
+   * Sets the working day to the given day.
+   *
+   * @param day - the day to set
+   * @return none
+   */
   updateDay(day) {
     if (day !== 0) {
       this.day = day;
@@ -74,6 +98,12 @@ export class Calendar {
     }
   }
 
+  /*
+   * Sets the working month to the previous month.
+   * Won't allow going to months prior to the current month.
+   *
+   * @return none
+   */
   decrementMonth(): void {
     if (this.month == new Date().getMonth() && this.year == new Date().getFullYear()) {
       return;

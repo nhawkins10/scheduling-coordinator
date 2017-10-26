@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { SchedulingService } from '../service/scheduling.service';
 
@@ -8,6 +8,12 @@ import { SchedulingService } from '../service/scheduling.service';
   styleUrls: ['./authentication.component.css'],
   providers: [SchedulingService]
 })
+
+/*
+ * This class provides a modal that allows a user
+ * to authenticate themselves as well as change their
+ * password.
+ */
 export class Authentication {
   @Input() locked;
   @Output() onHideAuth = new EventEmitter<String>();
@@ -21,6 +27,12 @@ export class Authentication {
 
   constructor(private schedulingService: SchedulingService) {}
 
+  /*
+   * Toggles form fields to allow the user to
+   * change their password.
+   *
+   * @return none
+   */
   toggleChange() {
     this.resetMessages();
     this.changing = !this.changing;
@@ -29,10 +41,20 @@ export class Authentication {
     this.newPassword = '';
   }
 
+  /*
+   * Hides the authentication modal.
+   *
+   * @return none
+   */
   cancel() {
     this.onHideAuth.emit();
   }
 
+  /*
+   * Handles a change password request.
+   *
+   * @return none
+   */
   changePw() {
     this.resetMessages();
 
@@ -47,6 +69,11 @@ export class Authentication {
     }.bind(this));
   }
 
+  /*
+   * Handles a log in request.
+   *
+   * @return none
+   */
   logIn() {
     this.resetMessages();
 
@@ -60,12 +87,13 @@ export class Authentication {
     }.bind(this));
   }
 
+  /*
+   * Hides password related messages.
+   *
+   * @return none
+   */
   resetMessages() {
     this.passwordErrorMessage = false;
     this.passwordChangedMessage = false;
-  }
-
-  ngOnInit(): void {
-
   }
 }
