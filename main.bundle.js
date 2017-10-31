@@ -139,15 +139,31 @@ var Authentication = (function () {
         this.password = '';
         this.newPassword = '';
     }
+    /*
+     * Toggles form fields to allow the user to
+     * change their password.
+     *
+     * @return none
+     */
     Authentication.prototype.toggleChange = function () {
         this.resetMessages();
         this.changing = !this.changing;
         this.password = '';
         this.newPassword = '';
     };
+    /*
+     * Hides the authentication modal.
+     *
+     * @return none
+     */
     Authentication.prototype.cancel = function () {
         this.onHideAuth.emit();
     };
+    /*
+     * Handles a change password request.
+     *
+     * @return none
+     */
     Authentication.prototype.changePw = function () {
         this.resetMessages();
         this.schedulingService.getPassword().then(function (password) {
@@ -161,6 +177,11 @@ var Authentication = (function () {
             }
         }.bind(this));
     };
+    /*
+     * Handles a log in request.
+     *
+     * @return none
+     */
     Authentication.prototype.logIn = function () {
         this.resetMessages();
         this.schedulingService.getPassword().then(function (password) {
@@ -173,11 +194,14 @@ var Authentication = (function () {
             }
         }.bind(this));
     };
+    /*
+     * Hides password related messages.
+     *
+     * @return none
+     */
     Authentication.prototype.resetMessages = function () {
         this.passwordErrorMessage = false;
         this.passwordChangedMessage = false;
-    };
-    Authentication.prototype.ngOnInit = function () {
     };
     return Authentication;
 }());
@@ -203,7 +227,13 @@ Authentication = __decorate([
         template: __webpack_require__("../../../../../src/app/authentication/authentication.component.html"),
         styles: [__webpack_require__("../../../../../src/app/authentication/authentication.component.css")],
         providers: [__WEBPACK_IMPORTED_MODULE_1__service_scheduling_service__["a" /* SchedulingService */]]
-    }),
+    })
+    /*
+     * This class provides a modal that allows a user
+     * to authenticate themselves as well as change their
+     * password.
+     */
+    ,
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__service_scheduling_service__["a" /* SchedulingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_scheduling_service__["a" /* SchedulingService */]) === "function" && _a || Object])
 ], Authentication);
 
@@ -220,7 +250,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".calendar {\r\n  background-color: #ffffff;\r\n  display: inline-block;\r\n  z-index: 300;\r\n  position: relative;\r\n}\r\n\r\n@media (max-width: 900px) {\r\n .calendar {\r\n    width: 100%;\r\n    box-shadow: 0px 2px 5px #aaa;\r\n  }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .calendar {\r\n    width: 49%;\r\n    box-shadow: 5px 5px 5px #aaa;\r\n  }\r\n}\r\n\r\n.selected {\r\n  color: #de1f1f;\r\n  background-color: #f1f1f1;\r\n  font-weight: bold;\r\n}\r\n\r\n.monthHeader {\r\n  font-size: 30px;\r\n  width: 100%;\r\n  text-align: center;\r\n  margin: 20px 0;\r\n}\r\n\r\n.month {\r\n  font-weight: bold;\r\n}\r\n\r\n.monthBack {\r\n  color: #555;\r\n  padding-right: 10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.monthAhead {\r\n  color: #555;\r\n  padding-left: 10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.calendarGrid {\r\n  width: 100%;\r\n}\r\n\r\n.dayHeader {\r\n  text-align: center;\r\n}\r\n\r\n.day {\r\n  border: 1px solid #ececec;\r\n  text-align: center;\r\n  height: 50px;\r\n  width: 14%;\r\n  cursor: pointer;\r\n}\r\n\r\n.empty {\r\n  border: 1px solid transparent;\r\n}\r\n", ""]);
+exports.push([module.i, ".calendar {\r\n  background-color: #ffffff;\r\n  display: inline-block;\r\n  z-index: 300;\r\n  position: relative;\r\n}\r\n\r\n@media (max-width: 900px) {\r\n .calendar {\r\n    width: 100%;\r\n    box-shadow: 0px 2px 5px #aaa;\r\n  }\r\n}\r\n\r\n@media (min-width: 901px) {\r\n  .calendar {\r\n    width: 49%;\r\n    box-shadow: 5px 5px 5px #aaa;\r\n  }\r\n}\r\n\r\n.selected {\r\n  color: #de1f1f;\r\n  background-color: #f1f1f1;\r\n  font-weight: bold;\r\n}\r\n\r\n.day.hidden {\r\n  border: 1px solid transparent;\r\n}\r\n\r\n.monthHeader {\r\n  font-size: 30px;\r\n  width: 100%;\r\n  text-align: center;\r\n  margin: 20px 0;\r\n}\r\n\r\n.month {\r\n  font-weight: bold;\r\n}\r\n\r\n.monthBack {\r\n  color: #555;\r\n  padding-right: 10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.monthAhead {\r\n  color: #555;\r\n  padding-left: 10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.calendarGrid {\r\n  width: 100%;\r\n}\r\n\r\n.dayHeader {\r\n  text-align: center;\r\n}\r\n\r\n.day {\r\n  border: 1px solid #ececec;\r\n  text-align: center;\r\n  height: 50px;\r\n  width: 14%;\r\n  cursor: pointer;\r\n}\r\n\r\n.empty {\r\n  border: 1px solid transparent;\r\n}\r\n", ""]);
 
 // exports
 
@@ -233,7 +263,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/calendar/calendar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"calendar\">\r\n  <div class=\"monthHeader\">\r\n    <span class=\"monthBack\" (click)=\"decrementMonth()\">&lt;</span>\r\n    <span class=\"month\">{{ monthNames[month] }} {{ showYear() ? year : '' }}</span>\r\n    <span class=\"monthAhead\" (click)=\"incrementMonth()\">&gt;</span>\r\n  </div>\r\n  <table class=\"calendarGrid\">\r\n    <thead>\r\n      <tr>\r\n        <td class=\"dayHeader\">Sun</td>\r\n        <td class=\"dayHeader\">Mon</td>\r\n        <td class=\"dayHeader\">Tue</td>\r\n        <td class=\"dayHeader\">Wed</td>\r\n        <td class=\"dayHeader\">Thu</td>\r\n        <td class=\"dayHeader\">Fri</td>\r\n        <td class=\"dayHeader\">Sat</td>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let week of monthArray\">\r\n        <ng-container *ngFor=\"let currentDay of week\">\r\n          <td class=\"day\" *ngIf=\"currentDay != ''\" (click)=\"updateDay(currentDay)\" [class.selected]=\"currentDay == day\">\r\n            <span>{{ currentDay > 0 ? currentDay : \"\" }}</span>\r\n          </td>\r\n        </ng-container>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  <div class=\"controlBlock\">\r\n    <button (click)=\"goToToday()\">Go To Today</button>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"calendar\">\r\n  <div class=\"monthHeader\">\r\n    <span class=\"monthBack\" (click)=\"decrementMonth()\">&lt;</span>\r\n    <span class=\"month\">{{ monthNames[month] }} {{ showYear() ? year : '' }}</span>\r\n    <span class=\"monthAhead\" (click)=\"incrementMonth()\">&gt;</span>\r\n  </div>\r\n  <table class=\"calendarGrid\">\r\n    <thead>\r\n      <tr>\r\n        <td class=\"dayHeader\">Sun</td>\r\n        <td class=\"dayHeader\">Mon</td>\r\n        <td class=\"dayHeader\">Tue</td>\r\n        <td class=\"dayHeader\">Wed</td>\r\n        <td class=\"dayHeader\">Thu</td>\r\n        <td class=\"dayHeader\">Fri</td>\r\n        <td class=\"dayHeader\">Sat</td>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let week of monthArray\">\r\n        <ng-container *ngFor=\"let currentDay of week\">\r\n          <td class=\"day\" (click)=\"updateDay(currentDay)\" [class.selected]=\"currentDay == day\" [class.hidden]=\"currentDay == ''\">\r\n            <span>{{ currentDay > 0 ? currentDay : \"\" }}</span>\r\n          </td>\r\n        </ng-container>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  <div class=\"controlBlock\">\r\n    <button (click)=\"goToToday()\">Go To Today</button>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -261,6 +291,12 @@ var Calendar = (function () {
         this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         this.monthArray = [];
     }
+    /*
+     * Returns a boolean indicating if the current
+     * year is a leap year.
+     *
+     * @return Boolean
+     */
     Calendar.prototype.isLeapYear = function () {
         if (parseInt(this.year, 10) % 100 === 0 && parseInt(this.year, 10) % 400 === 0) {
             return true;
@@ -272,6 +308,13 @@ var Calendar = (function () {
             return false;
         }
     };
+    /*
+     * Generates an array of arrays to represent the current month.
+     * Array elements that are not part of the working month are
+     * set to zero.
+     *
+     * @return none
+     */
     Calendar.prototype.generateCalendar = function () {
         var monthStart = new Date(this.year, this.month, 1);
         var lengths = {
@@ -310,12 +353,24 @@ var Calendar = (function () {
         }
         this.monthArray = monthArray;
     };
+    /*
+     * Sets the working day to the given day.
+     *
+     * @param day - the day to set
+     * @return none
+     */
     Calendar.prototype.updateDay = function (day) {
         if (day !== 0) {
             this.day = day;
             this.onDayChanged.emit(day);
         }
     };
+    /*
+     * Sets the working month to the previous month.
+     * Won't allow going to months prior to the current month.
+     *
+     * @return none
+     */
     Calendar.prototype.decrementMonth = function () {
         if (this.month == new Date().getMonth() && this.year == new Date().getFullYear()) {
             return;
@@ -407,6 +462,10 @@ Calendar = __decorate([
         template: __webpack_require__("../../../../../src/app/calendar/calendar.component.html"),
         styles: [__webpack_require__("../../../../../src/app/calendar/calendar.component.css")]
     })
+    /*
+     * This class provides a calendar interface that allows
+     * access to the current month and future months.
+     */
 ], Calendar);
 
 //# sourceMappingURL=calendar.component.js.map
