@@ -19,7 +19,7 @@
     <tbody>
       <tr *ngFor="let week of monthArray">
         <ng-container *ngFor="let currentDay of week">
-          <td class="day" *ngIf="currentDay != ''" (click)="updateDay(currentDay)" [class.selected]="currentDay == day">
+          <td class="day" (click)="updateDay(currentDay)" [class.selected]="currentDay == day" [class.hidden]="currentDay == ''">
             <span>{{ currentDay > 0 ? currentDay : "" }}</span>
           </td>
         </ng-container>
